@@ -47,7 +47,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "patientcare_api",
+          "Host": "schedulesync_api",
           "Port": 80
         }
       ],
