@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  healthgateway_api:
+    build:
+      context: .
+    container_name: healthgateway_api
+    ports:
+      - "8081:8080"
+    volumes:
+      - dataprotection-keys:/root/.aspnet/DataProtection-Keys  # 🔹 Persistência das chaves
+    networks:
+      - monitoring_network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+volumes:
+  dataprotection-keys:  # 🔹 Volume nomeado para persistir chaves
+
+networks:
+  monitoring_network:
+    external: true

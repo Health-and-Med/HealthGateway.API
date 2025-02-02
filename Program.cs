@@ -1,0 +1,74 @@
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
+using System.Text;
+using Prometheus;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// 🔹 Carregar configuração do Ocelot
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+
+builder.Services.AddControllers();
+builder.Services.AddOcelot();
+
+// 🔹 Configuração do JWT
+var jwtConfig = builder.Configuration.GetSection("Jwt");
+var key = Encoding.ASCII.GetBytes(jwtConfig["Secret"]);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidIssuer = jwtConfig["Issuer"],
+            ValidAudience = jwtConfig["Audience"]
+        };
+    });
+
+// 🔹 Adicionar suporte ao Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Logging.AddConsole();
+
+var app = builder.Build();
+
+// 🔹 Configuração do pipeline de requisição
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "HealthGateway API V1");
+    });
+}
+
+// app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+// 🔹 Adicionar Middleware do Prometheus
+app.UseMetricServer(); // 🔹 Expor métricas na rota padrão "/metrics"
+app.UseHttpMetrics();  // 🔹 Coletar métricas HTTP automaticamente
+
+
+// 🔹 Middleware que intercepta requisições do Ocelot
+app.UseMiddleware<OcelotAuthMiddleware>();
+
+// 🔹 Mapeia os Controllers ANTES do Ocelot
+app.MapControllers();
+
+// 🔹 Ativa o Ocelot depois
+app.UseOcelot().Wait();
+
+app.Run();
