@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Ocelot.DependencyInjection;
+﻿using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using System.Text;
 using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,29 +10,7 @@ builder.Configuration
     .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
 builder.Services.AddControllers();
-builder.Services.AddOcelot();
-
-// 🔹 Configuração do JWT para Ocelot
-var jwtConfig = builder.Configuration.GetSection("Jwt");
-var key = Encoding.ASCII.GetBytes(jwtConfig["Secret"]);
-
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer("Bearer", options =>
-    {
-        options.RequireHttpsMetadata = false;
-        options.SaveToken = true;
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidIssuer = jwtConfig["Issuer"],
-            ValidAudience = jwtConfig["Audience"]
-        };
-    });
-
-builder.Services.AddAuthorization();
+builder.Services.AddOcelot(); // 🔹 Removemos a autenticação JWT do Ocelot
 
 // 🔹 Adicionar suporte ao Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -44,16 +19,6 @@ builder.Logging.AddConsole();
 
 var app = builder.Build();
 
-// 🔹 Configuração do pipeline de requisição
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "HealthGateway API V1");
-    });
-}
-
 // 🔹 Middleware de métricas (Prometheus)
 app.UseMetricServer();
 app.UseHttpMetrics(options =>
@@ -61,10 +26,19 @@ app.UseHttpMetrics(options =>
     options.AddCustomLabel("path", context => context.Request.Path);
 });
 
-app.UseAuthentication();
-app.UseAuthorization();
+// 🔹 Middleware para garantir que o token JWT seja propagado corretamente para os serviços downstream
+app.Use(async (context, next) =>
+{
+    if (context.Request.Headers.ContainsKey("Authorization"))
+    {
+        var token = context.Request.Headers["Authorization"];
+        context.Request.Headers.Remove("Authorization");
+        context.Request.Headers.Add("Authorization", token);
+    }
+    await next();
+});
 
-// 🔹 Ativa o Ocelot depois da autenticação
+// 🔹 Ativa o Ocelot
 app.UseOcelot().Wait();
 
 app.Run();

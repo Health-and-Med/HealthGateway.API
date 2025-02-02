@@ -23,48 +23,6 @@
       ],
       "UpstreamPathTemplate": "/api/med/{everything}",
       "UpstreamHttpMethod": [ "POST", "GET", "PUT" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "DownstreamHeaderTransform": {
-        "Authorization": "LeaveAsIs"
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/api/patient/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "patientcare_api",
-          "Port": 80
-        }
-      ],
-      "UpstreamPathTemplate": "/api/patient/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "DownstreamHeaderTransform": {
-        "Authorization": "LeaveAsIs"
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/api/schedule/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "schedulesync_api",
-          "Port": 80
-        }
-      ],
-      "UpstreamPathTemplate": "/api/schedule/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
       "DownstreamHeaderTransform": {
         "Authorization": "LeaveAsIs"
       }
@@ -72,18 +30,5 @@
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:8081"
-  },
-  "AuthenticationOptions": {
-    "ProviderKey": "Bearer",
-    "RequireHttpsMetadata": false
-  },
-  "RateLimitOptions": {
-    "ClientIdHeader": "ClientId",
-    "GeneralRules": [
-      {
-        "Period": "1m",
-        "Limit": 10
-      }
-    ]
   }
 }
