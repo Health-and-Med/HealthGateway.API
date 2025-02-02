@@ -58,3 +58,4 @@ docker-compose.override.override.yml
 Thumbs.db
 *.pid
 *.pid.lock
+*.vsidx
