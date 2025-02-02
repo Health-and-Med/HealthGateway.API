@@ -1,12 +1,37 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\mathe\\OneDrive\\Documentos\\hackaton-fiap\\HealthGateway.API\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D903C0DC-7B00-4CAB-A4E4-CD5EA6A21481}|HealthGateway.API.csproj|c:\\users\\mathe\\onedrive\\documentos\\hackaton-fiap\\healthgateway.api\\healthgateway.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D903C0DC-7B00-4CAB-A4E4-CD5EA6A21481}|HealthGateway.API.csproj|solutionrelative:healthgateway.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HealthGateway.API",
+              "DocumentMoniker": "C:\\Users\\mathe\\OneDrive\\Documentos\\hackaton-fiap\\HealthGateway.API\\HealthGateway.API.csproj",
+              "RelativeDocumentMoniker": "HealthGateway.API.csproj",
+              "ToolTip": "C:\\Users\\mathe\\OneDrive\\Documentos\\hackaton-fiap\\HealthGateway.API\\HealthGateway.API.csproj",
+              "RelativeToolTip": "HealthGateway.API.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-02T16:37:13.026Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
