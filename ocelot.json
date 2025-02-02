@@ -22,7 +22,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/med/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET", "PUT" ]
+      "UpstreamHttpMethod": [ "POST", "GET", "PUT" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/patient/{everything}",
@@ -34,7 +38,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/patient/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/schedule/{everything}",
@@ -46,17 +54,17 @@
         }
       ],
       "UpstreamPathTemplate": "/api/schedule/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     }
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:8081"
   },
-  "Logging": {
-    "LogLevel": {
-      "Default": "Debug",
-      "Microsoft": "Warning",
-      "Ocelot": "Debug"
-    }
+  "AuthenticationOptions": {
+    "ProviderKey": "Bearer"
   }
 }

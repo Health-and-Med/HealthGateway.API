@@ -15,12 +15,12 @@ builder.Configuration
 builder.Services.AddControllers();
 builder.Services.AddOcelot();
 
-// 🔹 Configuração do JWT
+// 🔹 Configuração do JWT para Ocelot
 var jwtConfig = builder.Configuration.GetSection("Jwt");
 var key = Encoding.ASCII.GetBytes(jwtConfig["Secret"]);
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
     {
         options.RequireHttpsMetadata = false;
         options.SaveToken = true;
@@ -34,6 +34,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidAudience = jwtConfig["Audience"]
         };
     });
+
+builder.Services.AddAuthorization();
 
 // 🔹 Adicionar suporte ao Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -52,27 +54,20 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-// 🔹 Adicionar Middleware do Prometheus
-app.UseMetricServer(); // 🔹 Expor métricas na rota padrão "/metrics"
-app.UseHttpMetrics(options =>// 🔹 Coletar métricas HTTP automaticamente
+// 🔹 Middleware de métricas (Prometheus)
+app.UseMetricServer();
+app.UseHttpMetrics(options =>
 {
     options.AddCustomLabel("path", context => context.Request.Path);
 });
 
-
-
-// 🔹 Middleware que intercepta requisições do Ocelot
-app.UseMiddleware<OcelotAuthMiddleware>();
+app.UseAuthentication();
+app.UseAuthorization();
 
 // 🔹 Mapeia os Controllers ANTES do Ocelot
 app.MapControllers();
 
-// 🔹 Ativa o Ocelot depois
+// 🔹 Ativa o Ocelot depois da autenticação
 app.UseOcelot().Wait();
 
 app.Run();
