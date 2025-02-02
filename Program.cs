@@ -59,7 +59,11 @@ app.UseAuthorization();
 
 // 🔹 Adicionar Middleware do Prometheus
 app.UseMetricServer(); // 🔹 Expor métricas na rota padrão "/metrics"
-app.UseHttpMetrics();  // 🔹 Coletar métricas HTTP automaticamente
+app.UseHttpMetrics(options =>// 🔹 Coletar métricas HTTP automaticamente
+{
+    options.AddCustomLabel("path", context => context.Request.Path);
+});
+
 
 
 // 🔹 Middleware que intercepta requisições do Ocelot
