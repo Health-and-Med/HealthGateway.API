@@ -38,6 +38,8 @@ nuget.config
 *.swp
 *.db
 
+*.vsdx
+
 # Configurações de Ambiente e Segurança
 # appsettings.Development.json
 # appsettings.Local.json
