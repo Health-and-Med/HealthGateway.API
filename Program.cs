@@ -19,7 +19,7 @@ builder.Services.AddOcelot();
 var jwtConfig = builder.Configuration.GetSection("Jwt");
 var key = Encoding.ASCII.GetBytes(jwtConfig["Secret"]);
 
-builder.Services.AddAuthentication("Bearer")
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer("Bearer", options =>
     {
         options.RequireHttpsMetadata = false;
@@ -63,9 +63,6 @@ app.UseHttpMetrics(options =>
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-// 🔹 Mapeia os Controllers ANTES do Ocelot
-app.MapControllers();
 
 // 🔹 Ativa o Ocelot depois da autenticação
 app.UseOcelot().Wait();

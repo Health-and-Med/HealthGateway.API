@@ -26,6 +26,9 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
+      },
+      "DownstreamHeaderTransform": {
+        "Authorization": "LeaveAsIs"
       }
     },
     {
@@ -42,6 +45,9 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
+      },
+      "DownstreamHeaderTransform": {
+        "Authorization": "LeaveAsIs"
       }
     },
     {
@@ -58,6 +64,9 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
+      },
+      "DownstreamHeaderTransform": {
+        "Authorization": "LeaveAsIs"
       }
     }
   ],
