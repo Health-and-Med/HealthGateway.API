@@ -56,6 +56,21 @@
       "DownstreamHeaderTransform": {
         "Authorization": "LeaveAsIs"
       }
+    },
+    {
+      "DownstreamPathTemplate": "/api/notify/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "notifymed_api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/notify/{everything}",
+      "UpstreamHttpMethod": [ "POST", "GET", "PUT" ],
+      "DownstreamHeaderTransform": {
+        "Authorization": "LeaveAsIs"
+      }
     }
 
   ],
