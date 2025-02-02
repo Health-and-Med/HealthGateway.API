@@ -74,6 +74,16 @@
     "BaseUrl": "http://localhost:8081"
   },
   "AuthenticationOptions": {
-    "ProviderKey": "Bearer"
+    "ProviderKey": "Bearer",
+    "RequireHttpsMetadata": false
+  },
+  "RateLimitOptions": {
+    "ClientIdHeader": "ClientId",
+    "GeneralRules": [
+      {
+        "Period": "1m",
+        "Limit": 10
+      }
+    ]
   }
 }
