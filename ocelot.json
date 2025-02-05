@@ -22,7 +22,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/med/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET", "PUT" ],
+      "UpstreamHttpMethod": [ "POST", "GET", "PUT" , "DELETE"],
       "DownstreamHeaderTransform": {
         "Authorization": "LeaveAsIs"
       }
@@ -37,7 +37,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/patients/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET", "PUT" ],
+        "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ],
       "DownstreamHeaderTransform": {
         "Authorization": "LeaveAsIs"
       }
@@ -52,7 +52,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/scheduling/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET", "PUT" ],
+        "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ],
       "DownstreamHeaderTransform": {
         "Authorization": "LeaveAsIs"
       }
@@ -67,7 +67,7 @@
         }
       ],
       "UpstreamPathTemplate": "/api/notify/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET", "PUT" ],
+        "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ],
       "DownstreamHeaderTransform": {
         "Authorization": "LeaveAsIs"
       }
