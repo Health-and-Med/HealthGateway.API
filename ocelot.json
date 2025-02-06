@@ -1,79 +1,94 @@
 {
-  "Routes": [
-    {
-      "DownstreamPathTemplate": "/api/auth/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+    "Routes": [
         {
-          "Host": "authmed_api",
-          "Port": 80
-        }
-      ],
-      "UpstreamPathTemplate": "/api/auth/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/med/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/auth/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "authmed_api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/auth/{everything}",
+            "UpstreamHttpMethod": [ "POST", "GET" ]
+        },
         {
-          "Host": "medcontrol_api",
-          "Port": 80
-        }
-      ],
-      "UpstreamPathTemplate": "/api/med/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET", "PUT" , "DELETE"],
-      "DownstreamHeaderTransform": {
-        "Authorization": "LeaveAsIs"
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/api/patients/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/med/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "medcontrol_api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/med/{everything}",
+            "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ],
+            "DownstreamHeaderTransform": {
+                "Authorization": "LeaveAsIs"
+            }
+        },
         {
-          "Host": "patientcare_api",
-          "Port": 80
-        }
-      ],
-      "UpstreamPathTemplate": "/api/patients/{everything}",
-        "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ],
-      "DownstreamHeaderTransform": {
-        "Authorization": "LeaveAsIs"
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/api/scheduling/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/patients/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "patientcare_api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/patients/{everything}",
+            "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ],
+            "DownstreamHeaderTransform": {
+                "Authorization": "LeaveAsIs"
+            }
+        },
         {
-          "Host": "schedulesync_api",
-          "Port": 80
-        }
-      ],
-      "UpstreamPathTemplate": "/api/scheduling/{everything}",
-        "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ],
-      "DownstreamHeaderTransform": {
-        "Authorization": "LeaveAsIs"
-      }
-    },
-    {
-      "DownstreamPathTemplate": "/api/notify/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/schedule/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "schedulesync_api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/schedule/{everything}",
+            "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ],
+            "DownstreamHeaderTransform": {
+                "Authorization": "LeaveAsIs"
+            }
+        },
         {
-          "Host": "notifymed_api",
-          "Port": 80
+            "DownstreamPathTemplate": "/api/notify/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "notifymed_api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/notify/{everything}",
+            "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ],
+            "DownstreamHeaderTransform": {
+                "Authorization": "LeaveAsIs"
+            }
+        },
+        {
+            "DownstreamPathTemplate": "/api/consultation/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "schedulesync_api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/consultation/{everything}",
+            "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ],
+            "DownstreamHeaderTransform": {
+                "Authorization": "LeaveAsIs"
+            }
         }
-      ],
-      "UpstreamPathTemplate": "/api/notify/{everything}",
-        "UpstreamHttpMethod": [ "POST", "GET", "PUT", "DELETE" ],
-      "DownstreamHeaderTransform": {
-        "Authorization": "LeaveAsIs"
-      }
-    }
 
-  ],
+    ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:8081"
   }
